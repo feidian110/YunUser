@@ -21,7 +21,7 @@ $this->title = "用户注册";
                     <input type="text" class="aui-code-line-input" name="username" value="" id="name"  placeholder="请输入用户名"/>
                 </p>
                 <p class="aui-code-line">
-                    <input type="text" class="aui-code-line-input" name="phone1" value="" id="phone1" autocomplete="off" placeholder="请输入手机号"/>
+                    <input type="text" class="aui-code-line-input" name="phone" value="" id="phone" autocomplete="off" placeholder="请输入手机号"/>
                 </p>
                 <p class="aui-code-line">
                     <input type="text" class="aui-code-line-input" name="email" value="" id="email"  placeholder="请输入邮箱"/>
@@ -31,7 +31,7 @@ $this->title = "用户注册";
                 </p>
                 <p class="aui-code-line">
                     <!-- <i class="aui-show  operate-eye-open"></i> -->
-                    <input type="password" id="psw_ag" class="aui-code-line-input" placeholder="再次验证密码" value="">
+                    <input type="password" id="psw_ag" class="aui-code-line-input" placeholder="再次输入密码" value="">
                 </p>
                 <!-- <div class="aui-flex-links">
                     <input type="text" placeholder="输入验证码" class="erification-right" name="">

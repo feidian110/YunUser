@@ -19,6 +19,10 @@ var login = {
         var data = {'username':account,'password':password};
 
         $.post( url,data, function (result) {
+            if( result.code != 200 ){
+                hui.toast(result.message);
+                return false;
+            }
 
         },'JSON')
 
@@ -142,7 +146,7 @@ $('.aui-show').click(function() {
 });
 $("#register").click(function(){
 
-    var phone = $.trim($('#phone1').val());
+    var phone = $.trim($('#phone').val());
     var name = $.trim($('#name').val());
     var email=$.trim($("#email").val());
     var password=$.trim($("#psw").val());
@@ -153,7 +157,7 @@ $("#register").click(function(){
     }
     if (!isPhoneNo(phone)) {
         hui.toast('请输入有效的手机号码！');
-        $("#phone1").focus();
+        $("#phone").focus();
         return false;
     }
     if(email=="")
@@ -185,7 +189,13 @@ $("#register").click(function(){
         'password' : password,
         'ra_pass' : $.trim($("#psw").val()),
     }
-    $.post(url,data,function() {
+    $.post(url,data,function(result) {
+        if( result.code != 200 ){
+            hui.toast(result.message);
+            return false;
+        }
+        hui.toast('注册成功！');
+        location.href="/html5/yun-user/public/login";
 
     },'JSON')
 });

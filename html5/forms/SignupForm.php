@@ -29,8 +29,8 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['username', 'email','mobile'], 'trim'],
-            [['email', 'username', 'password', 'ra_pass', 'mobile'], 'required'],
+            [['username', 'email','mobile'], 'trim','on'=>'register'],
+            [['email', 'username', 'password', 'ra_pass', 'mobile'], 'required','on'=>'register'],
             [
                 'username',
                 'unique',
@@ -38,20 +38,9 @@ class SignupForm extends Model
                 'filter' => function (ActiveQuery $query) {
                     return $query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
                 },
-                'message' => '这个用户名已经被占用.'
+                'message' => '该用户名已存在！','on'=>'register'
             ],
-            ['username', 'string', 'min' => 2, 'max' => 20],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            [
-                'email',
-                'unique',
-                'targetClass' => '\common\models\member\Member',
-                'filter' => function (ActiveQuery $query) {
-                    return $query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
-                },
-                'message' => '这个邮箱地址已经被占用了.'
-            ],
+            ['username', 'string', 'min' => 2, 'max' => 20,'on'=>'register'],
             [
                 'mobile',
                 'unique',
@@ -59,16 +48,29 @@ class SignupForm extends Model
                 'filter' => function (ActiveQuery $query) {
                     return $query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
                 },
-                'message' => '该手机号码已经被占用.'
+                'message' => '该手机号码已经被占用！','on'=>'register'
             ],
-            ['password', 'string', 'min' => 6, 'max' => 20],
+            ['email', 'email','on'=>'register'],
+            ['email', 'string', 'max' => 255,'on'=>'register'],
+            [
+                'email',
+                'unique',
+                'targetClass' => '\common\models\member\Member',
+                'filter' => function (ActiveQuery $query) {
+                    return $query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
+                },
+                'message' => '该电子邮箱已经被占用！','on'=>'register'
+            ],
+
+            ['password', 'string', 'min' => 6, 'max' => 20,'on'=>'register'],
+            ['ra_pass', 'compare', 'compareAttribute' => 'password','message'=>'两次输入的密码不一致！'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'username' => '登录帐号',
+            'username' => '用户名',
             'password' => '登录密码',
             'email' => '电子邮箱',
             'mobile' => '手机号码',
@@ -90,7 +92,6 @@ class SignupForm extends Model
         $user->mobile = $this->mobile;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-
         return $user->save() ? $user : $user->getErrors();
     }
 }

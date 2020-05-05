@@ -4,9 +4,11 @@
 namespace addons\YunUser\html5\controllers;
 
 
+use addons\YunStore\common\enums\StateEnum;
 use addons\YunUser\html5\forms\LoginForm;
 use addons\YunUser\html5\forms\SignupForm;
 use common\helpers\ResultHelper;
+use common\models\member\Member;
 use Yii;
 
 class PublicController extends BaseController
@@ -41,17 +43,30 @@ class PublicController extends BaseController
 
     public function actionSignup()
     {
-        $model = new SignupForm();
+
         if( Yii::$app->request->isPost ){
-            $model->username = trim(Yii::$app->request->post('username',''));
-            $model->password = trim(Yii::$app->request->post('password',''));
-            $model->ra_pass = trim(Yii::$app->request->post('ra_pass',''));
-            $model->email = trim(Yii::$app->request->post('email',''));
-            $model->mobile = trim(Yii::$app->request->post('mobile',''));
-            if( $model->signup() ){
-                return ResultHelper::json('200', '注册成功！');
+            $username = trim(Yii::$app->request->post('username',''));
+            $password = trim(Yii::$app->request->post('password',''));
+            $ra_pass = Yii::$app->request->post('ra_pass','');
+            $email = trim(Yii::$app->request->post('email',''));
+            $mobile = (int)Yii::$app->request->post('mobile');
+
+            $model = new SignupForm(['scenario'=>'register']);
+            $model->username = $username;
+            $model->password = $password;
+            $model->ra_pass = $ra_pass;
+            $model->email = $email;
+            $model->mobile = $mobile;
+            if( $model->validate() ){
+                if( $model->signup() ){
+                    return ResultHelper::json(200,'注册成功！');
+                }else{
+                    return ResultHelper::json(402,$this->getError($model));
+                }
+            }else{
+                return ResultHelper::json(402,$this->getError($model));
             }
-            return ResultHelper::json('402', '用户名或者密码错误！');
+
         }
         return $this->render( $this->action->id );
     }
