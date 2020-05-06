@@ -29,7 +29,7 @@ $this->title = "个人中心";
     <div class="hui-list" style="background:#FFFFFF; margin-top:28px;">
         <ul>
             <li>
-                <a href="<?= Url::to(['order/shop/index']);?>">
+                <a href="/html5/yun-shop/order/order/index">
                     <div class="hui-list-icons">
                         <img src="/html5/resources/img/list/order.png" />
                     </div>
@@ -87,4 +87,14 @@ $this->title = "个人中心";
     <div style="background:#FFFFFF; margin-top:28px;">
         <a class="hui-button hui-button-large" href="<?=Url::to(['logout']);?>" data-method="post"><span class="hui-icons hui-icons-logoff"></span>退出系统</a>
     </div>
+</div>
+<div id="hui-footer" style="height: 57px;">
+    <a href="javascript:hui.back();" id="nav-home" style="width: 50%">
+        <div class="hui-footer-icons hui-icons-home"></div>
+        <div class="hui-footer-text">首页</div>
+    </a>
+    <a href="<?= Url::to(['index']);?>" id="nav-my" style="width: 50%">
+        <div class="hui-footer-icons hui-icons-my"></div>
+        <div class="hui-footer-text">我的</div>
+    </a>
 </div>
