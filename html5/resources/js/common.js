@@ -147,31 +147,15 @@ $('.aui-show').click(function() {
 $("#register").click(function(){
 
     var phone = $.trim($('#phone').val());
-    var name = $.trim($('#name').val());
-    var email=$.trim($("#email").val());
     var password=$.trim($("#psw").val());
-    if(name==""){
-        hui.toast('用户名不能为空！');
-        $("#name").focus();
-        return false;
-    }
+
     if (!isPhoneNo(phone)) {
         hui.toast('请输入有效的手机号码！');
         $("#phone").focus();
         return false;
     }
-    if(email=="")
-    {
-        hui.toast('请输入邮箱地址！');
-        $("#email").focus();
-        return false;
-    }
-    if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/))
-    {
-        hui.toast('邮箱格式不正确，请重新出入！！');
-        $("#email").focus();
-        return false;
-    }
+
+
     if($.trim($("#psw").val())!=''&& $.trim($("#psw_ag").val())!=''){
         if($.trim($("#psw").val())!=$.trim($("#psw_ag").val())){
             hui.toast('两次输入的密码不一致！！');
@@ -183,9 +167,8 @@ $("#register").click(function(){
     }
     var url = '';
     var data = {
-        "username": name,
+
         'mobile' : phone,
-        'email' : email,
         'password' : password,
         'ra_pass' : $.trim($("#psw").val()),
     }

@@ -17,9 +17,8 @@ use common\models\member\Member;
  */
 class SignupForm extends Model
 {
-    public $username;
+
     public $mobile;
-    public $email;
     public $password;
     public $ra_pass;
 
@@ -29,18 +28,9 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['username', 'email','mobile'], 'trim','on'=>'register'],
-            [['email', 'username', 'password', 'ra_pass', 'mobile'], 'required','on'=>'register'],
-            [
-                'username',
-                'unique',
-                'targetClass' => '\common\models\member\Member',
-                'filter' => function (ActiveQuery $query) {
-                    return $query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
-                },
-                'message' => '该用户名已存在！','on'=>'register'
-            ],
-            ['username', 'string', 'min' => 2, 'max' => 20,'on'=>'register'],
+            [['mobile'], 'trim','on'=>'register'],
+            [['password', 'ra_pass', 'mobile'], 'required','on'=>'register'],
+
             [
                 'mobile',
                 'unique',
@@ -49,17 +39,6 @@ class SignupForm extends Model
                     return $query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
                 },
                 'message' => '该手机号码已经被占用！','on'=>'register'
-            ],
-            ['email', 'email','on'=>'register'],
-            ['email', 'string', 'max' => 255,'on'=>'register'],
-            [
-                'email',
-                'unique',
-                'targetClass' => '\common\models\member\Member',
-                'filter' => function (ActiveQuery $query) {
-                    return $query->andWhere(['>=', 'status', StatusEnum::DISABLED]);
-                },
-                'message' => '该电子邮箱已经被占用！','on'=>'register'
             ],
 
             ['password', 'string', 'min' => 6, 'max' => 20,'on'=>'register'],
@@ -70,9 +49,8 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => '用户名',
+
             'password' => '登录密码',
-            'email' => '电子邮箱',
             'mobile' => '手机号码',
             'ra_pass' => '确认密码'
         ];
@@ -87,11 +65,10 @@ class SignupForm extends Model
     public function signup()
     {
         $user = new Member();
-        $user->username = $this->username;
-        $user->email = $this->email;
         $user->mobile = $this->mobile;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        return $user->save() ? $user : $user->getErrors();
+
+        return $user->save() ? $user->id : $user->getErrors();
     }
 }

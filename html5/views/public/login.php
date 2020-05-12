@@ -36,12 +36,7 @@ $this->title = "用户登录";
 </style>
 <section class="aui-flexView">
 
-    <div class="login-box">
-        <div class="login-logo">
-            <img src="<?= ImageHelper::defaultHeaderPortrait('');?>" style="width: 80px;height: 80px;border-radius:10px;">
-        </div>
 
-    </div>
     <section class="aui-scrollView">
         <div class="aui-code-box">
             <form  id="form">
@@ -70,7 +65,7 @@ $this->title = "用户登录";
 
                 <?php ActiveForm::end();?>
         </div>
-        <!-----
+
         <div class="aui-login-line">
             <h2>第三方登录</h2>
         </div>
@@ -85,7 +80,7 @@ $this->title = "用户登录";
                 <img src="/html5/resources/img/icon-sin-003.png" alt="">
             </a>
         </div>
-        ---->
+
     </section>
 </section>
 

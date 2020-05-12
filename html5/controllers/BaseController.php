@@ -2,9 +2,13 @@
 
 namespace addons\YunUser\html5\controllers;
 
+use common\models\member\Auth;
+use common\models\member\Member;
 use common\traits\BaseAction;
+use common\traits\WechatLogin;
 use Yii;
 use common\controllers\AddonsController;
+use yii\helpers\Json;
 
 /**
  * 默认控制器
@@ -15,6 +19,8 @@ use common\controllers\AddonsController;
 class BaseController extends AddonsController
 {
     use BaseAction;
+
+
     /**
     * @var string
     */

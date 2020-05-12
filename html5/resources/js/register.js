@@ -115,30 +115,14 @@
 $("#register").click(function(){
 			
 				var phone = $.trim($('#phone1').val());
-				var name = $.trim($('#name').val());
-				var email=$.trim($("#email").val());
 				var password=$.trim($("#psw").val());
-				if(name==""){
-					alert("用户名不能为空");
-					$("#name").focus();
-					return false;
-				}
+
 				if (!isPhoneNo(phone)) {
 				    alert("请输入有效的手机号码");
 					$("#phone1").focus();
 				    return false;
 				}
-				if(email=="")
-				  {
-				   alert("邮箱不能为空");
-				   $("#email").focus();
-				   return false;
-				  }
-				  if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/))
-				  {
-				   alert("邮箱格式不正确！请重新输入");
-				   $("#email").focus();
-				  }
+
 				if($.trim($("#psw").val())!=''&& $.trim($("#psw_ag").val())!=''){
 					if($.trim($("#psw").val())!=$.trim($("#psw_ag").val())){
 					
